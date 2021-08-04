@@ -2,6 +2,10 @@ import express from 'express'
 import routes from './routes'
 
 
+// Importando o banco de dados
+import './database/index'
+
+
 class App {
 
     constructor(){
