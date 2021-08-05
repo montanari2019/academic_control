@@ -2,7 +2,7 @@ const sequelize = require("sequelize");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-   await queryInterface.createTable('dadosBancarios', { 
+   await queryInterface.createTable('DadoBancario', { 
      id: {
        type: sequelize.INTEGER,
        allowNull: false,
@@ -11,28 +11,28 @@ module.exports = {
      },
 
      banco:{
-       type: Sequelize.INTEGER,
+       type: Sequelize.STRING,
        allowNull: false,
      },
      agencia:{
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: false,
     },
     conta:{
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: false,
     },
     cod_cedente:{
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: false,
     },
     cod_convenio:{
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: true,
     },
     id_associacao:{
       type: sequelize.INTEGER,
-      references: { model: 'associacao', key: 'id' }
+      references: { model: 'Associacao', key: 'id' }
     },   
     created_at:{
       type: Sequelize.DATE,
@@ -48,7 +48,7 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('dadosBancarios');
+    await queryInterface.dropTable('DadoBancario');
      
   }
 };

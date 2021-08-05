@@ -33,11 +33,11 @@ module.exports = {
         allowNull: false,
       },
       RG: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       CPF: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       telefone01: {
@@ -45,7 +45,7 @@ module.exports = {
        allowNull: false,
      },
      cep: {
-       type: Sequelize.INTEGER,
+       type: Sequelize.STRING,
        allowNull: false,
      },
      endereco: {
@@ -53,11 +53,11 @@ module.exports = {
        allowNull: false,
      },
      bairro: {
-       type: Sequelize.INTEGER,
+       type: Sequelize.STRING,
        allowNull: false,
      },
      numero: {
-       type: Sequelize.INTEGER,
+       type: Sequelize.STRING,
        allowNull: false,
      },
      cidade: {

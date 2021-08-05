@@ -12,6 +12,7 @@ class Associacao extends Model {
             sequelize,
         }
     )
+    return this
  }
 
 }
