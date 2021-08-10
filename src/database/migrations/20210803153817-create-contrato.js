@@ -3,7 +3,7 @@ const sequelize = require("sequelize");
 module.exports = {
   up: async (queryInterface, Sequelize) => {
   
-     await queryInterface.createTable('contrato', { 
+     await queryInterface.createTable('Contrato', { 
        
       id: {
         type: Sequelize.INTEGER,
@@ -61,11 +61,11 @@ module.exports = {
      },
      id_user:{
        type: sequelize.INTEGER,
-       references: { model: 'users', key: 'id' }
+       references: { model: 'Users', key: 'id' }
      },
      id_faculdade:{
       type: sequelize.INTEGER,
-      references: { model: 'faculdade', key: 'id' }
+      references: { model: 'Faculdade', key: 'id' }
     },
     });
      
@@ -73,7 +73,7 @@ module.exports = {
 
   down: async (queryInterface) => {
     
-    await queryInterface.dropTable('contrato');
+    await queryInterface.dropTable('Contrato');
      
   }
 };

@@ -13,6 +13,8 @@ class AssociacaoController{
             return res.status(400).json({ error: 'Falha na validação'})
         }
 
+        console.log("dados do body", req.body)
+
         const associacao = await Associacao.create(req.body)
 
         return res.json({ associacao })

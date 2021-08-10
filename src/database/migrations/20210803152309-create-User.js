@@ -36,15 +36,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      RG: {
+      r_g: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      CPF: {
+      c_p_f: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      telefone01: {
+      telefone: {
        type: Sequelize.STRING,
        allowNull: false,
      },

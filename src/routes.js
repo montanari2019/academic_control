@@ -3,6 +3,8 @@ import multer from 'multer'
 
 import multerConfig from './config/multer'
 
+import authenticate from './app/middleware/auth'
+
 import AssociacaoController from './app/controllers/AssociacaoController'
 import DadosBancariosController from './app/controllers/DadoBancarioController'
 import UserController from './app/controllers/UserController'
@@ -27,5 +29,8 @@ routes.delete('/associacao/dadosbancariosDelete/:id', DadosBancariosController.d
 
 // Rotas dos usuários
 routes.post('/user',multer(multerConfig).single('file') ,UserController.store)
+routes.get('/users' ,UserController.index)
+routes.post('/authenticate', UserController.authentication)
+routes.put('/user/update', authenticate ,UserController.update)
 
 export default routes
