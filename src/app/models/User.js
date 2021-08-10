@@ -12,6 +12,7 @@ class User extends Model {
 
             admin: Sequelize.BOOLEAN,
             foto: Sequelize.STRING,
+            foto_url: Sequelize.STRING,
             RG: Sequelize.STRING,
             CPF: Sequelize.STRING,
             telefone01: Sequelize.STRING,
