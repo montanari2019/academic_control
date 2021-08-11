@@ -30,11 +30,11 @@ module.exports = {
       },
       foto: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       foto_url: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       r_g: {
         type: Sequelize.STRING,
@@ -82,7 +82,8 @@ module.exports = {
      },
      id_associacao:{
        type: sequelize.INTEGER,
-       references: { model: 'Associacao', key: 'id' }
+       references: { model: 'Associacao', key: 'id' },
+       allowNull: false
      },
      
     });

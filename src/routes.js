@@ -31,6 +31,8 @@ routes.delete('/associacao/dadosbancariosDelete/:id', DadosBancariosController.d
 routes.post('/user',multer(multerConfig).single('file') ,UserController.store)
 routes.get('/users' ,UserController.index)
 routes.post('/authenticate', UserController.authentication)
-routes.put('/user/update', authenticate ,UserController.update)
+routes.put('/user/update',authenticate, multer(multerConfig).single('file'), UserController.update)
+routes.put('/user/password', UserController.updatePassword)
+routes.delete('/user/delete', authenticate, UserController.destroy)
 
 export default routes

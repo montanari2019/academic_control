@@ -61,11 +61,13 @@ module.exports = {
      },
      id_user:{
        type: sequelize.INTEGER,
-       references: { model: 'Users', key: 'id' }
+       references: { model: 'Users', key: 'id' },
+       allowNull: false
      },
      id_faculdade:{
       type: sequelize.INTEGER,
-      references: { model: 'Faculdade', key: 'id' }
+      references: { model: 'Faculdade', key: 'id' },
+      allowNull: false
     },
     });
      

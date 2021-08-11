@@ -32,7 +32,8 @@ module.exports = {
     },
     id_associacao:{
       type: sequelize.INTEGER,
-      references: { model: 'Associacao', key: 'id' }
+      references: { model: 'Associacao', key: 'id' },
+      allowNull: false
     },   
     created_at:{
       type: Sequelize.DATE,

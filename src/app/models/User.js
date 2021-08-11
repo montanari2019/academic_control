@@ -1,5 +1,9 @@
 import Sequelize, { Model } from 'sequelize'
+import { promisify } from 'util'
 import bcrypt from 'bcrypt'
+const aws = require('aws-sdk')
+
+const s3 = new aws.S3()
 
 class User extends Model {
     static init(sequelize) {
@@ -45,6 +49,12 @@ class User extends Model {
 
     checkPassword(password){
         return bcrypt.compare(password, this.password_hash)
+    }
+
+    s3Delete(key){
+        
+        return s3.deleteObject({Bucket: 'controledeacademicos',Key: key
+        }).promise()
     }
    
 

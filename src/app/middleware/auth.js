@@ -1,6 +1,5 @@
 import jws from 'jsonwebtoken'
 import { promisify } from 'util'
-import authConfig from '../../config/configAuthenticate'
 
 export default async (req, res, next) => {
 
@@ -14,7 +13,7 @@ export default async (req, res, next) => {
 
     try {
 
-        const decoded = await promisify(jws.verify)(token, authConfig.hash)
+        const decoded = await promisify(jws.verify)(token, process.env.HASH)
         req.userId = decoded.id
          return next()
 

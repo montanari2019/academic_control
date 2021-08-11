@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken'
 import User from "../models/User"
 import * as Yup from 'yup'
-import configAuthenticate from '../../config/configAuthenticate'
 
 
 class UserController{
@@ -97,12 +96,14 @@ class UserController{
             return res.status(401).json({ erro: 'Usuário não exite'})
             
         }
-
+        // Verifcando se a senha informada é a mesma do banco
         if(!(await user.checkPassword(password))){
             return res.status(401).json({ erro: 'Senha Invalida'})
         }
 
         const { id, nome } = user
+
+        // Gerando token
 
         return res.json({ 
             user:{
@@ -110,8 +111,8 @@ class UserController{
                 nome,
                 email
             },
-            token: jwt.sign({ id, }, configAuthenticate.hash,{
-                expiresIn: configAuthenticate.expiration
+            token: jwt.sign({ id, }, process.env.HASH,{
+                expiresIn: process.env.EXPIRATION
             } )
 
         })
@@ -121,9 +122,137 @@ class UserController{
 
     async update (req, res) {
 
-        const id_user = req.userId
-        res.json(id_user)
+        console.log("dados do body: ", req.body)
+        console.log("dados do file: ", req.file)
+
+        const user_id = req.userId
+        const { key, location } = req.file
+
+        const user = await User.findByPk(user_id)
+
+        if(!user){
+            return res.status(401).json({ erro: 'Usuário não exite'})
+        }
+
+        const schema = Yup.object().shape({
+            nome: Yup.string(),
+            email: Yup.string().email(),
+            admin: Yup.boolean(),
+            r_g: Yup.number(),
+            c_p_f: Yup.number(),
+            telefone: Yup.number(),
+            cep: Yup.number(),
+            endereco: Yup.string(),
+            bairro: Yup.string(),
+            numero: Yup.number(),
+            cidade: Yup.string(),
+            estado: Yup.string(),
+            id_associacao: Yup.number(),
+        })
+
+        if(!(await schema.isValid(req.body))){
+            return res.status(400).json({ error: 'Falha na validação'})
+        }
+
+        
+        console.log('key da foto', user.foto)
+
+        // Deletando foto do servido AWS
+        await user.s3Delete(user.foto)
+        
+
+        const { id, nome, email, admin, foto, foto_url, created_at, updated_at } = await user.update({
+            nome: req.body.nome,
+            email: req.body.email,
+            admin: req.body.admin,
+            r_g: req.body.r_g,
+            c_p_f: req.body.c_p_f,
+            telefone: req.body.telefone,
+            cep: req.body.cep,
+            endereco: req.body.endereco,
+            bairro: req.body.bairro,
+            numero: req.body.numero,
+            cidade: req.body.cidade,
+            estado: req.body.estado,
+            id_associacao: req.body.id_associacao,
+            foto: key,
+            foto_url: location
+        })
+
+        
+        return res.json({
+            id,
+            nome,
+            email,
+            admin,
+            foto,
+            foto_url,
+            created_at,
+            updated_at,
+
+        })
+
+        // res.json({ok: true})
     }
+
+    async updatePassword (req, res){
+        const { password, confirm_password } = req.body
+
+        const user = await User.findOne({
+            where: { email: req.body.email}
+        })
+
+        const schema = Yup.object().shape({
+            
+            email: Yup.string().required().email(),
+            password: Yup.string().required().min(6),
+            confirm_password: Yup.string().required().min(6),
+            
+        })
+
+        if(!(await schema.isValid(req.body))){
+            return res.status(400).json({ error: 'Falha na validação'})
+        }
+
+        if(password != confirm_password){
+            return res.status(400).json({error: 'As senhas não são iguais'})
+        }
+
+        await user.update({
+            password: confirm_password,
+        })
+
+        return res.json(user)
+    }
+
+    async destroy(req, res) {
+        const { user_id } = req.body
+        const adminId = req.userId
+
+        const admin = await User.findByPk(adminId)
+        const user = await User.findByPk(user_id)
+
+        // // Validando Admin
+        // if(!admin) {
+        //     return res.status(401).json({ erro: 'Admin não exite'})
+        // }
+
+        if(!user){
+            return res.status(401).json({ erro: 'Usuário não exite'})
+        }
+
+        console.log('key da foto', user.foto)
+
+        // Deletando foto do servido AWS
+        await user.s3Delete(user.foto)
+        
+        await user.destroy()
+
+        return res.json({ message: 'Usuário deletado'})
+
+
+    }
+    
 
   
 
