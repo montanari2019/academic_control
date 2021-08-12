@@ -25,11 +25,11 @@ module.exports = {
       },
       cancelado:{
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: true
       },
       descricao:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
       },
       dias_ultilizados:{
         type: Sequelize.INTEGER,
@@ -64,6 +64,11 @@ module.exports = {
        references: { model: 'User', key: 'id' },
        allowNull: false
      },
+     id_associacao:{
+      type: sequelize.INTEGER,
+      references: { model: 'Associacao', key: 'id' },
+      allowNull: false
+    },
      id_faculdade:{
       type: sequelize.INTEGER,
       references: { model: 'Faculdade', key: 'id' },

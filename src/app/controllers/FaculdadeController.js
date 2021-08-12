@@ -14,7 +14,7 @@ class FaculdadeController{
 
         
         const faculdadeExists = await Faculdade.findOne({
-            where: { nome: req.body.nome }
+            where: { nome: req.body.nome, id_associacao: user.id_associacao}
         })
 
         if(faculdadeExists){
@@ -74,6 +74,20 @@ class FaculdadeController{
         const faculdades = await Faculdade.findAll({
             where: { id_associacao: userAuth.id_associacao, id: id }
         })
+
+        return res.json(faculdades)
+    }
+
+    async indexAssociated(req, res) {
+        const { id } = req.params
+
+        const faculdades = await Faculdade.findAll({
+            where: { id_associacao: id }
+        })
+
+        if(!faculdades){
+            return res.status(404).json({ error: 'Não existem faculdade para essa associação'})
+        }
 
         return res.json(faculdades)
     }

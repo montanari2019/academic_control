@@ -42,7 +42,7 @@ class AssociacaoController{
 
         const schema = Yup.object().shape({
             nome: Yup.string(),
-            cnpj: Yup.number(),
+            cnpj: Yup.number().min(14).max(14),
         })
 
         if(!(await schema.isValid(req.body))){

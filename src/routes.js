@@ -9,6 +9,7 @@ import AssociacaoController from './app/controllers/AssociacaoController'
 import DadosBancariosController from './app/controllers/DadoBancarioController'
 import UserController from './app/controllers/UserController'
 import FaculdadeController from './app/controllers/FaculdadeController'
+import ContratoController from './app/controllers/ContratoController'
 
 const routes = new Router()
 
@@ -41,9 +42,17 @@ routes.delete('/user/delete', authenticate, UserController.delete)
 // Rotas da Faculdade
 routes.post('/faculdade', authenticate, FaculdadeController.store)
 routes.get('/faculdades', authenticate, FaculdadeController.index)
+routes.get('/faculdades/associacao/:id', FaculdadeController.indexAssociated)
 routes.get('/faculdades/:id', authenticate, FaculdadeController.indexId)
 routes.put('/faculdade/update/:id',authenticate, FaculdadeController.update)
 routes.delete('/faculdade/delete/:id', authenticate, FaculdadeController.delete)
+
+// Rotas do Contrato
+routes.post('/contrato', ContratoController.store)
+routes.get('/contratos', authenticate, ContratoController.index)
+routes.get('/contrato/:id', authenticate, ContratoController.indexID)
+routes.put('/contrato/update/:id',authenticate, ContratoController.update)
+routes.delete('/contrato/delete/:id', ContratoController.delete)
 
 
 export default routes

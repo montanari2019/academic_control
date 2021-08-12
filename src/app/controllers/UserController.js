@@ -21,7 +21,7 @@ class UserController{
             password: Yup.string().required().min(6),
             admin: Yup.boolean().required(),
             r_g: Yup.number().required(),
-            c_p_f: Yup.number().required(),
+            c_p_f: Yup.number().required().min(11).max(11),
             telefone: Yup.number().required(),
             cep: Yup.number().required(),
             endereco: Yup.string().required(),
