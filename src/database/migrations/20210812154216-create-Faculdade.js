@@ -6,7 +6,7 @@ module.exports = {
      await queryInterface.createTable('Faculdade', { 
        
       id: {
-        type: Sequelize.INTEGER,
+        type: sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -48,6 +48,11 @@ module.exports = {
        type: Sequelize.DATE,
        allowNull: false
      },
+     id_associacao:{
+      type: sequelize.INTEGER,
+      references: { model: 'Associacao', key: 'id' },
+      allowNull: false
+    },
      
     });
      

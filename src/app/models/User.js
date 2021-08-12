@@ -1,5 +1,4 @@
 import Sequelize, { Model } from 'sequelize'
-import { promisify } from 'util'
 import bcrypt from 'bcrypt'
 const aws = require('aws-sdk')
 
@@ -30,7 +29,6 @@ class User extends Model {
             sequelize,
         },
 
-
     ) 
      // Criptografando a senha do usuário
         this.addHook('beforeSave', async user =>{
@@ -51,12 +49,10 @@ class User extends Model {
         return bcrypt.compare(password, this.password_hash)
     }
 
-    s3Delete(key){
-        
+    s3Delete(key){       
         return s3.deleteObject({Bucket: 'controledeacademicos',Key: key
         }).promise()
     }
-   
 
 }
 

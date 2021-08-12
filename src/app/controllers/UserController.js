@@ -26,7 +26,7 @@ class UserController{
             cep: Yup.number().required(),
             endereco: Yup.string().required(),
             bairro: Yup.string().required(),
-            numero: Yup.number().required(),
+            numero: Yup.string().required(),
             cidade: Yup.string().required(),
             estado: Yup.string().required(),
             id_associacao: Yup.number().required(),
@@ -79,11 +79,6 @@ class UserController{
 
     }
 
-    async index(req, res) {
-        const { password_hash, ...response } = await User.findAll()
-        return res.status(200).json(response)
-    }
-
     async authentication (req, res){
         const { email, password } = req.body
 
@@ -101,7 +96,7 @@ class UserController{
             return res.status(401).json({ erro: 'Senha Invalida'})
         }
 
-        const { id, nome } = user
+        const { id, nome, id_associacao } = user
 
         // Gerando token
 
@@ -109,7 +104,8 @@ class UserController{
             user:{
                 id,
                 nome,
-                email
+                email,
+                id_associacao
             },
             token: jwt.sign({ id, }, process.env.HASH,{
                 expiresIn: process.env.EXPIRATION
@@ -118,6 +114,43 @@ class UserController{
         })
 
 
+    }
+
+    async index(req, res) {
+        const { password_hash, ...response } = await User.findAll()
+        return res.status(200).json(response)
+    }
+
+    async indexId(req, res) {
+        const { id } = req.params
+
+        const user = await User.findByPk(id)
+
+        return res.json(user)
+    }
+
+    async indexAssociated(req, res) {
+        const { id } = req.params
+
+        const userAuth = await User.findByPk(req.userId)
+
+        if(!userAuth) {
+            return res.status(401).json({ erro: 'Usuário não existe'}) 
+        }else if (userAuth.admin != true) {
+            return res.status(401).json({ erro: 'Voce não tem permissão para ver esses dados'})
+        }else if (userAuth.id_associacao != id){
+            return res.status(401).json({ erro: 'Usuário não tem permissão para ver esses dados'})
+        }
+
+        const users = await User.findAll({
+            where: { id_associacao: id}
+        })
+
+        if(!users) {
+            return res.status(401).json({ erro: 'Associação sem usuários'})
+        }
+
+        return res.json(users)
     }
 
     async update (req, res) {
@@ -144,7 +177,7 @@ class UserController{
             cep: Yup.number(),
             endereco: Yup.string(),
             bairro: Yup.string(),
-            numero: Yup.number(),
+            numero: Yup.string(),
             cidade: Yup.string(),
             estado: Yup.string(),
             id_associacao: Yup.number(),
@@ -225,7 +258,7 @@ class UserController{
         return res.json(user)
     }
 
-    async destroy(req, res) {
+    async delete(req, res) {
         const { user_id } = req.body
         const adminId = req.userId
 

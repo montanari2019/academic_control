@@ -4,8 +4,9 @@ import databaseconfig from '../config/database'
 import Associacao from '../app/models/associacao'
 import DadoBancario from '../app/models/DadoBancario'
 import User from '../app/models/User'
+import Faculdade from '../app/models/Faculdade'
 
-const models = [Associacao, DadoBancario, User]
+const models = [Associacao, DadoBancario, User, Faculdade]
 
 class Database {
     constructor(){
