@@ -1,9 +1,11 @@
 require('dotenv').config()
 
-import express, { urlencoded } from 'express'
+import express from 'express'
 import multer from 'multer'
+import cors from 'cors'
 import routes from './routes'
 import path from 'path'
+import morgan from 'morgan'
 
 
 // Importando o banco de dados
@@ -20,6 +22,8 @@ class App {
 
     middleware(){
         this.server.use(express.json())
+        this.server.use(cors())
+        this.server.use(morgan('dev'))
         this.server.use(express.urlencoded({ extended: true }))
         this.server.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')))
     }
