@@ -1,4 +1,5 @@
-import Sequelize, { Model } from 'sequelize'
+const  Model  = require('sequelize')
+const  Sequelize = require('sequelize')
 
 class Faculdade extends Model {
     static init(sequelize) {
@@ -28,4 +29,4 @@ class Faculdade extends Model {
     }
 }
 
-export default Faculdade
+module.exports = Faculdade

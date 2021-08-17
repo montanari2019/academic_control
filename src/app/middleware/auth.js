@@ -1,7 +1,7 @@
-import jws from 'jsonwebtoken'
-import { promisify } from 'util'
+const jws = require('jsonwebtoken')
+const { promisify } = require('util')
 
-export default async (req, res, next) => {
+module.exports = async (req, res, next) => {
 
     const tokenHeader = req.headers.authorization
 

@@ -1,4 +1,5 @@
-import Sequelize, { Model } from 'sequelize'
+const  Model  = require('sequelize')
+const  Sequelize = require('sequelize')
 
 class DadoBancario extends Model {
     static init(sequelize) {
@@ -20,4 +21,4 @@ class DadoBancario extends Model {
     }
 }
 
-export default DadoBancario
+module.exports = DadoBancario

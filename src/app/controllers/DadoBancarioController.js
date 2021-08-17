@@ -1,7 +1,7 @@
-import DadoBancario from '../models/DadoBancario'
-import * as Yup from 'yup'
+const DadoBancario = require('../models/DadoBancario')
+const Yup = require("yup")
 
-class DadosBancarios {
+module.exports = {
 
     async store(req, res) {
         const schema = Yup.object().shape({
@@ -22,12 +22,12 @@ class DadosBancarios {
         return res.json(dadosBancarios)
 
         
-    }
+    },
 
     async index(req, res) {
         const dadosBancarios = await DadoBancario.findAll()
         return res.json({ dadosBancarios })
-    }
+    },
 
     async indexSelect(req, res) {
 
@@ -37,7 +37,7 @@ class DadosBancarios {
             where: { id_associacao: id },
         })
         return res.json({ dadosBancarios })
-    }
+    },
 
     async update(req, res) {
 
@@ -73,7 +73,7 @@ class DadosBancarios {
         await dadosBancarios.update(req.body)
 
         return res.json(dadosBancarios)
-    }
+    },
 
     async delete(req, res) {
         const { id } = req.params
@@ -87,8 +87,8 @@ class DadosBancarios {
         await dadosBancarios.destroy()
 
         return res.json({ message: 'Dados bancários deletados'})
-    }
+    },
 
 }
 
-export default new DadosBancarios()
+

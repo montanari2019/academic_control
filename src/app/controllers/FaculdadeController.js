@@ -1,8 +1,8 @@
-import Faculdade from "../models/Faculdade"
-import User from "../models/User"
-import * as Yup from 'yup'
+const Faculdade = require('../models/Faculdade')
+const User = require("../models/User")
+const Yup = require("yup")
 
-class FaculdadeController{
+module.exports = {
 
     async store(req, res){
 
@@ -44,7 +44,7 @@ class FaculdadeController{
 
 
 
-    }
+    },
 
     async index(req, res) {
         const userAuth = await User.findByPk(req.userId)
@@ -60,7 +60,7 @@ class FaculdadeController{
 
         return res.json(faculdades)
 
-    }
+    },
 
     async indexId(req, res) {
         const userAuth = await User.findByPk(req.userId)
@@ -76,7 +76,7 @@ class FaculdadeController{
         })
 
         return res.json(faculdades)
-    }
+    },
 
     async indexAssociated(req, res) {
         const { id } = req.params
@@ -90,7 +90,7 @@ class FaculdadeController{
         }
 
         return res.json(faculdades)
-    }
+    },
 
     async update(req, res) {
 
@@ -122,7 +122,7 @@ class FaculdadeController{
 
        return res.json(faculdade)
 
-    }
+    },
 
     async delete(req, res) {
         const { id } = req.params
@@ -140,8 +140,6 @@ class FaculdadeController{
 
         return res.json({ message: 'Faculdade deletada'})
 
-    }
+    },
 
 }
-
-export default new FaculdadeController()

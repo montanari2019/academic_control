@@ -1,7 +1,7 @@
-import Associacao from "../models/associacao";
-import * as Yup from 'yup'
+const Associacao = require("../models/associacao")
+const Yup = require("yup")
 
-class AssociacaoController{
+module.exports = {
 
     async store(req, res){
         const schema = Yup.object().shape({
@@ -19,12 +19,12 @@ class AssociacaoController{
 
         return res.json({ associacao })
 
-    }
+    },
 
     async index(req, res) {
         const associacoes = await Associacao.findAll()
         return res.json({ associacoes })
-    }
+    },
 
     async update(req, res) {
 
@@ -54,7 +54,7 @@ class AssociacaoController{
 
         return res.json(associacao)
 
-    }
+    },
 
     async delete(req, res) {
         const { id } = req.params
@@ -69,8 +69,6 @@ class AssociacaoController{
         await associacao.destroy()
 
         return res.json({ message: 'Associação deletada'})
-    }
+    },
 
 }
-
-export default new AssociacaoController()

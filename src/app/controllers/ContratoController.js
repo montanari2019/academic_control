@@ -1,12 +1,14 @@
-import Faculdade from "../models/Faculdade"
-import User from "../models/User"
-import Contrato from "../models/Contrato"
-import * as Yup from 'yup'
+
+const Faculdade = require("../models/Faculdade")
+const User = require("../models/User")
+const Contrato = require("../models/Contrato")
+const Yup = require("yup")
+
 
 const validade_1year = '2021-12-31T23:59:59'
 const validade_6months = '2021-06-30T23:59:59'
 
-class ContratoController{
+module.exports = {
 
     async store(req, res){
 
@@ -62,7 +64,7 @@ class ContratoController{
 
         return res.json(contrato)
         // return res.json({ok: true})
-    }
+    },
 
     async index(req, res) {
 
@@ -75,7 +77,7 @@ class ContratoController{
         }
         return res.json(contratos)
 
-    }
+    },
 
     async indexID(req, res){
         const { id } = req.params
@@ -94,8 +96,7 @@ class ContratoController{
         }
         
         return res.json(contrato)
-    }
-
+    },
 
     async update(req, res) {
 
@@ -160,7 +161,7 @@ class ContratoController{
          
         return res.json(contrato)
 
-    }
+    },
 
     async delete(req, res) {
 
@@ -176,8 +177,6 @@ class ContratoController{
         await contrato.destroy()
         return res.json({message: 'Contrato deletado'})
 
-    }
+    },
 
 }
-
-export default new ContratoController()

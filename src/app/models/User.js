@@ -1,5 +1,6 @@
-import Sequelize, { Model } from 'sequelize'
-import bcrypt from 'bcrypt'
+const Model  = require('sequelize')
+const Sequelize = require('sequelize')
+const bcrypt = require('bcrypt')
 const aws = require('aws-sdk')
 
 const s3 = new aws.S3()
@@ -56,7 +57,7 @@ class User extends Model {
 
 }
 
-export default User
+module.exports = User
 
 
 

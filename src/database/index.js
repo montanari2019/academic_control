@@ -1,18 +1,19 @@
-import { Sequelize } from 'sequelize'
-import databaseconfig from '../config/database'
+const { Sequelize } = require('sequelize')
+const databaseconfig = require('../config/database')
 
-import Associacao from '../app/models/associacao'
-import DadoBancario from '../app/models/DadoBancario'
-import User from '../app/models/User'
-import Faculdade from '../app/models/Faculdade'
-import Contrato from '../app/models/Contrato'
+const Associacao = require("../app/models/Associacao")
+const Faculdade = require("../app/models/Faculdade")
+const User = require("../app/models/User")
+const Contrato = require("../app/models/Contrato")
+const DadoBancario = require('../app/models/DadoBancario')
 
-const models = [Associacao, DadoBancario, User, Faculdade, Contrato]
 
-class Database {
+const models = [Associacao, Faculdade, User, Contrato, DadoBancario]
+
+const connection = {
     constructor(){
         this.init()
-    }
+    },
 
     init(){
         // Concetando as configurações do banco
@@ -23,4 +24,4 @@ class Database {
     }
 }
 
-export default new Database()
+module.exports = connection

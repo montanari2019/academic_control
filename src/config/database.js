@@ -1,10 +1,9 @@
 module.exports = {
-    dialect: 'postgres',
-    url: process.env.DATABASE_URL,
-    host: 'localhost',
-    username: 'postgres',
-    password: 'admin',
-    database: 'academic',
+    dialect: process.env.DIALECT,
+    host: process.env.HOST,
+    username: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
     define: {
         timestamps: true,
         underscored: true,

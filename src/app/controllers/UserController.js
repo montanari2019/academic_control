@@ -1,9 +1,9 @@
-import jwt from 'jsonwebtoken'
-import User from "../models/User"
-import * as Yup from 'yup'
+const jwt = require('jsonwebtoken')
+const User = require("../models/User")
+const Yup = require("yup")
 
 
-class UserController{
+module.exports = {
 
     async store(req, res){
 
@@ -77,7 +77,7 @@ class UserController{
 
 
 
-    }
+    },
 
     async authentication (req, res){
         const { email, password } = req.body
@@ -114,12 +114,12 @@ class UserController{
         })
 
 
-    }
+    },
 
     async index(req, res) {
         const { password_hash, ...response } = await User.findAll()
         return res.status(200).json(response)
-    }
+    },
 
     async indexId(req, res) {
         const { id } = req.params
@@ -127,7 +127,7 @@ class UserController{
         const user = await User.findByPk(id)
 
         return res.json(user)
-    }
+    },
 
     async indexAssociated(req, res) {
         const { id } = req.params
@@ -151,7 +151,7 @@ class UserController{
         }
 
         return res.json(users)
-    }
+    },
 
     async update (req, res) {
 
@@ -226,7 +226,7 @@ class UserController{
         })
 
         // res.json({ok: true})
-    }
+    },
 
     async updatePassword (req, res){
         const { password, confirm_password } = req.body
@@ -256,7 +256,7 @@ class UserController{
         })
 
         return res.json(user)
-    }
+    },
 
     async delete(req, res) {
         const { user_id } = req.body
@@ -284,11 +284,9 @@ class UserController{
         return res.json({ message: 'Usuário deletado'})
 
 
-    }
+    },
     
 
   
 
 }
-
-export default new UserController()
